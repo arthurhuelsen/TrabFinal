@@ -14,6 +14,11 @@ public class CadastroEventoGUI extends JFrame {
     private JTextField txtLongitude;
     private JTextArea textAreaMensagens;
 
+    private JTextField txtMagnitude; // Terremoto
+    private JTextField txtEstiagem; // Seca
+    private JTextField txtVelocidade; // Ciclone
+    private JTextField txtPrecipitacao; // Ciclone
+
     private List<Evento> eventosCadastrados;
     private SimpleDateFormat formatadorData;
 
@@ -25,7 +30,7 @@ public class CadastroEventoGUI extends JFrame {
 
     private void initialize() {
         setTitle("Cadastro de Evento");
-        setBounds(100, 100, 400, 300);
+        setBounds(100, 100, 500, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
@@ -34,6 +39,12 @@ public class CadastroEventoGUI extends JFrame {
         add(createEntryPanel("Data (dd/MM/yyyy):", txtData = new JTextField(10)));
         add(createEntryPanel("Latitude:", txtLatitude = new JTextField(10)));
         add(createEntryPanel("Longitude:", txtLongitude = new JTextField(10)));
+
+        // Adiciona campos específicos de cada tipo de evento
+        add(createEntryPanel("Magnitude (Terremoto):", txtMagnitude = new JTextField(10)));
+        add(createEntryPanel("Estiagem (Seca):", txtEstiagem = new JTextField(10)));
+        add(createEntryPanel("Velocidade do Vento (Ciclone):", txtVelocidade = new JTextField(10)));
+        add(createEntryPanel("Precipitação (Ciclone):", txtPrecipitacao = new JTextField(10)));
 
         // Adiciona os botões e a área de mensagens
         add(createButtonPanel());
@@ -73,19 +84,48 @@ public class CadastroEventoGUI extends JFrame {
         String codigo = txtCodigo.getText();
         String dataTexto = txtData.getText();
         try {
-            // Verifica o formato da data
             Date data = formatadorData.parse(dataTexto);
             double latitude = Double.parseDouble(txtLatitude.getText());
             double longitude = Double.parseDouble(txtLongitude.getText());
 
-            // Verifica se o código do evento já existe
-            if (eventosCadastrados.stream().noneMatch(e -> e.getCodigo().equalsIgnoreCase(codigo))) {
-                Evento novoEvento = new Evento(codigo, dataTexto, latitude, longitude);
-                eventosCadastrados.add(novoEvento);
-                textAreaMensagens.setText("Evento cadastrado com sucesso!");
-            } else {
-                textAreaMensagens.setText("Erro: Código do evento já existente.");
+            // Verifica se mais de um tipo de evento específico está sendo cadastrado
+            int countTiposPreenchidos = 0;
+            if (!txtMagnitude.getText().isEmpty())
+                countTiposPreenchidos++;
+            if (!txtEstiagem.getText().isEmpty())
+                countTiposPreenchidos++;
+            if (!txtVelocidade.getText().isEmpty())
+                countTiposPreenchidos++;
+
+            if (countTiposPreenchidos > 1) {
+                textAreaMensagens.setText("Erro: Preencha somente os campos de um tipo de evento.");
+                return;
             }
+
+            // Cadastra o tipo de evento com base nos campos preenchidos
+            if (!txtMagnitude.getText().isEmpty()) {
+                double magnitude = Double.parseDouble(txtMagnitude.getText());
+                // Adiciona o Terremoto à lista
+                // eventosCadastrados.add(new Terremoto(codigo, data, latitude, longitude,
+                // magnitude));
+                textAreaMensagens.setText("Terremoto cadastrado com sucesso!");
+            } else if (!txtEstiagem.getText().isEmpty()) {
+                int estiagem = Integer.parseInt(txtEstiagem.getText());
+                // Adiciona a Seca à lista
+                // eventosCadastrados.add(new Seca(codigo, data, latitude, longitude,
+                // estiagem));
+                textAreaMensagens.setText("Seca cadastrada com sucesso!");
+            } else if (!txtVelocidade.getText().isEmpty()) {
+                double velocidade = Double.parseDouble(txtVelocidade.getText());
+                double precipitacao = Double.parseDouble(txtPrecipitacao.getText());
+                // Adiciona o Ciclone à lista
+                // eventosCadastrados.add(new Ciclone(codigo, data, latitude, longitude,
+                // velocidade, precipitacao));
+                textAreaMensagens.setText("Ciclone cadastrado com sucesso!");
+            } else {
+                textAreaMensagens.setText("Erro: Tipo de evento não especificado.");
+            }
+
         } catch (NumberFormatException ex) {
             textAreaMensagens.setText("Erro ao cadastrar evento: Verifique os dados numéricos.");
         } catch (java.text.ParseException ex) {
@@ -102,6 +142,10 @@ public class CadastroEventoGUI extends JFrame {
         txtData.setText("");
         txtLatitude.setText("");
         txtLongitude.setText("");
+        txtMagnitude.setText("");
+        txtEstiagem.setText("");
+        txtVelocidade.setText("");
+        txtPrecipitacao.setText("");
         textAreaMensagens.setText("");
     }
 }
