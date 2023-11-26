@@ -19,11 +19,15 @@ public class CadastroEventoGUI extends JFrame {
     private JTextField txtVelocidade; // Ciclone
     private JTextField txtPrecipitacao; // Ciclone
 
-    private List<Evento> eventosCadastrados;
+    private List<Terremoto> terremotosCadastrados;
+    private List<Seca> secasCadastradas;
+    private List<Ciclone> ciclonesCadastrados;
     private SimpleDateFormat formatadorData;
 
     public CadastroEventoGUI() {
-        eventosCadastrados = new ArrayList<>();
+        terremotosCadastrados = new ArrayList<>();
+        secasCadastradas = new ArrayList<>();
+        ciclonesCadastrados = new ArrayList<>();
         formatadorData = new SimpleDateFormat("dd/MM/yyyy");
         initialize();
     }
@@ -104,25 +108,37 @@ public class CadastroEventoGUI extends JFrame {
 
             // Cadastra o tipo de evento com base nos campos preenchidos
             if (!txtMagnitude.getText().isEmpty()) {
+                // Converte a magnitude de String para double
                 double magnitude = Double.parseDouble(txtMagnitude.getText());
-                // Adiciona o Terremoto à lista
-                // eventosCadastrados.add(new Terremoto(codigo, data, latitude, longitude,
-                // magnitude));
+                // Cria um novo Terremoto e o adiciona à lista de terremotos
+                terremotosCadastrados.add(new Terremoto(codigo, dataTexto, latitude, longitude, magnitude));
+                // Atualiza a área de mensagens com o sucesso do cadastro
                 textAreaMensagens.setText("Terremoto cadastrado com sucesso!");
+
             } else if (!txtEstiagem.getText().isEmpty()) {
+                // Converte a estiagem de String para int
                 int estiagem = Integer.parseInt(txtEstiagem.getText());
-                // Adiciona a Seca à lista
-                // eventosCadastrados.add(new Seca(codigo, data, latitude, longitude,
-                // estiagem));
+                // Cria uma nova Seca e a adiciona à lista de secas
+                secasCadastradas.add(new Seca(codigo, dataTexto, latitude, longitude, estiagem));
+                // Atualiza a área de mensagens com o sucesso do cadastro
                 textAreaMensagens.setText("Seca cadastrada com sucesso!");
+
             } else if (!txtVelocidade.getText().isEmpty()) {
+                // Converte a velocidade e a precipitação de String para double
                 double velocidade = Double.parseDouble(txtVelocidade.getText());
                 double precipitacao = Double.parseDouble(txtPrecipitacao.getText());
-                // Adiciona o Ciclone à lista
-                // eventosCadastrados.add(new Ciclone(codigo, data, latitude, longitude,
-                // velocidade, precipitacao));
+                // Cria um novo Ciclone e o adiciona à lista de ciclones
+                Ciclone ciclone = new Ciclone(codigo, dataTexto, latitude, longitude, velocidade, precipitacao);
+                ciclonesCadastrados.add(ciclone);
+                // Atualiza a área de mensagens com o sucesso do cadastro
                 textAreaMensagens.setText("Ciclone cadastrado com sucesso!");
+
+                // teste
+                System.out.println(ciclone.getCodigo());
+                System.out.println(ciclone.getPrecipitacao());
+                System.out.println(ciclone.getData());
             } else {
+                // Caso nenhum tipo de evento específico tenha sido preenchido, exibe um erro
                 textAreaMensagens.setText("Erro: Tipo de evento não especificado.");
             }
 
