@@ -87,6 +87,7 @@ public class CadastroEventoGUI extends JFrame {
     private void cadastrarEvento() {
         String codigo = txtCodigo.getText();
         String dataTexto = txtData.getText();
+        obterTodosOsEventos();
         try {
             Date data = formatadorData.parse(dataTexto);
             double latitude = Double.parseDouble(txtLatitude.getText());
@@ -163,5 +164,15 @@ public class CadastroEventoGUI extends JFrame {
         txtVelocidade.setText("");
         txtPrecipitacao.setText("");
         textAreaMensagens.setText("");
+    }
+
+    public List<Evento> obterTodosOsEventos() {
+        List<Evento> todosEventos = new ArrayList<>();
+        todosEventos.addAll(terremotosCadastrados);
+        todosEventos.addAll(secasCadastradas);
+        todosEventos.addAll(ciclonesCadastrados);
+        System.out.println(todosEventos);
+        return todosEventos;
+
     }
 }

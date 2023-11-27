@@ -48,11 +48,13 @@ public class MenuPrincipalGUI {
     }
 
     private void openCadastroEquipamento() {
-        // Implementar abertura da janela de Cadastro de Equipamento
+        CadastroEquipamentoGUI cadastroEquipamentoGUI = new CadastroEquipamentoGUI();
+        cadastroEquipamentoGUI.setVisible(true);
     }
 
     private void openCadastroAtendimento() {
-        // Implementar abertura da janela de Cadastro de Atendimento
+        // CadastroAtendimentoGUI cadastroAtendimentoGUI = new CadastroAtendimentoGUI();
+        // cadastroAtendimentoGUI.setVisible(true);
     }
 
     private void showRelatorioGeral() {
