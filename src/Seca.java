@@ -12,4 +12,8 @@ public class Seca extends Evento {
 		return estiagem;
 	}
 
+	@Override
+	public String toString() {
+		return "Seca - Código: " + getCodigo() + ", Data: " + getData() + ", Estiagem: " + estiagem;
+	}
 }

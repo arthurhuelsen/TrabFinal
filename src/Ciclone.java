@@ -18,4 +18,9 @@ public class Ciclone extends Evento {
 		return precipitacao;
 	}
 
+	@Override
+	public String toString() {
+		return "Ciclone - Código: " + getCodigo() + ", Data: " + getData() + ", Velocidade: " + velocidade
+				+ ", Precipitação: " + precipitacao;
+	}
 }

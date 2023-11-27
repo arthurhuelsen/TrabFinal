@@ -171,7 +171,6 @@ public class CadastroEventoGUI extends JFrame {
         todosEventos.addAll(terremotosCadastrados);
         todosEventos.addAll(secasCadastradas);
         todosEventos.addAll(ciclonesCadastrados);
-        System.out.println(todosEventos);
         return todosEventos;
 
     }

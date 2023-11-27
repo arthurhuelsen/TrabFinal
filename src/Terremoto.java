@@ -12,4 +12,9 @@ public class Terremoto extends Evento {
 		return magnitude;
 	}
 
+	@Override
+	public String toString() {
+		return "Terremoto - Código: " + getCodigo() + ", Data: " + getData() + ", Magnitude: " + magnitude;
+	}
+
 }

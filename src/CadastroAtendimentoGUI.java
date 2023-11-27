@@ -13,7 +13,6 @@ public class CadastroAtendimentoGUI extends JFrame {
     private JTextField txtCodAtendimento;
     private JTextField txtDataInicio;
     private JTextField txtDuracao;
-    private JComboBox<String> comboStatus;
     private JTextArea textAreaMensagens;
 
     private List<Evento> eventosCadastrados;
@@ -58,10 +57,6 @@ public class CadastroAtendimentoGUI extends JFrame {
         panelDados.add(new JLabel("Duração:"));
         panelDados.add(txtDuracao);
 
-        comboStatus = new JComboBox<>(new String[] { "Pendente", "Em Andamento", "Concluído" });
-        panelDados.add(new JLabel("Status:"));
-        panelDados.add(comboStatus);
-
         frame.getContentPane().add(panelDados);
 
         // Painel para os botões
@@ -92,11 +87,11 @@ public class CadastroAtendimentoGUI extends JFrame {
         int codAtendimento = Integer.parseInt(txtCodAtendimento.getText());
         String dataInicio = txtDataInicio.getText();
         int duracao = Integer.parseInt(txtDuracao.getText());
-        String status = comboStatus.getSelectedItem().toString();
 
         if (eventoSelecionado != null && !existeAtendimentoParaEvento(eventoSelecionado)) {
             String codigoEvento = eventoSelecionado.getCodigo(); // Obter o código do evento
-            Atendimento novoAtendimento = new Atendimento(codAtendimento, codigoEvento, dataInicio, duracao, status);
+            Atendimento novoAtendimento = new Atendimento(codAtendimento, codigoEvento, dataInicio, duracao,
+                    "Pendente");
             atendimentos.add(novoAtendimento);
             filaAtendimentosPendentes.offer(novoAtendimento);
             textAreaMensagens.setText("Atendimento cadastrado e adicionado à fila de pendências.");

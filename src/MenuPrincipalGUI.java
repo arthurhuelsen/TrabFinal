@@ -2,11 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MenuPrincipalGUI {
     private JFrame frame;
+    private CadastroEventoGUI cadastroEventoGUI;
 
     public MenuPrincipalGUI() {
+        cadastroEventoGUI = new CadastroEventoGUI();
         initialize();
     }
 
@@ -43,8 +46,7 @@ public class MenuPrincipalGUI {
     }
 
     private void openCadastroEvento() {
-        CadastroEventoGUI cadastroEventoGUI = new CadastroEventoGUI();
-        cadastroEventoGUI.setVisible(true);
+        this.cadastroEventoGUI.setVisible(true);
     }
 
     private void openCadastroEquipamento() {
@@ -53,8 +55,9 @@ public class MenuPrincipalGUI {
     }
 
     private void openCadastroAtendimento() {
-        // CadastroAtendimentoGUI cadastroAtendimentoGUI = new CadastroAtendimentoGUI();
-        // cadastroAtendimentoGUI.setVisible(true);
+        List<Evento> eventosCadastrados = cadastroEventoGUI.obterTodosOsEventos();
+        CadastroAtendimentoGUI cadastroAtendimentoGUI = new CadastroAtendimentoGUI(eventosCadastrados);
+        cadastroAtendimentoGUI.setVisible(true);
     }
 
     private void showRelatorioGeral() {
