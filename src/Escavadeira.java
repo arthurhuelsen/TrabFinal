@@ -17,4 +17,13 @@ public class Escavadeira extends Equipamento {
 		return carga;
 	}
 
+	@Override
+	public String toString() {
+		return "Escavadeira - ID: " + getId() +
+				", Nome: " + getNome() +
+				", Custo por Dia: " + getCustoDia() +
+				", Combustível: " + combustivel +
+				", Carga: " + carga + " toneladas";
+	}
+
 }

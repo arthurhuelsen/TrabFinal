@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
-import java.util.LinkedList;
 
 public class CadastroAtendimentoGUI extends JFrame {
     private JFrame frame;
@@ -16,12 +14,10 @@ public class CadastroAtendimentoGUI extends JFrame {
     private JTextArea textAreaMensagens;
 
     private List<Evento> eventosCadastrados;
-    private Queue<Atendimento> filaAtendimentosPendentes; // Fila de atendimentos pendentes
     private List<Atendimento> atendimentos; // Lista de todos os atendimentos
 
     public CadastroAtendimentoGUI(List<Evento> eventosCadastrados) {
         this.eventosCadastrados = eventosCadastrados;
-        this.filaAtendimentosPendentes = new LinkedList<>();
         this.atendimentos = new ArrayList<>();
         initialize();
     }
@@ -93,7 +89,7 @@ public class CadastroAtendimentoGUI extends JFrame {
             Atendimento novoAtendimento = new Atendimento(codAtendimento, codigoEvento, dataInicio, duracao,
                     "Pendente");
             atendimentos.add(novoAtendimento);
-            filaAtendimentosPendentes.offer(novoAtendimento);
+
             textAreaMensagens.setText("Atendimento cadastrado e adicionado à fila de pendências.");
         } else {
             textAreaMensagens.setText("Erro: O evento selecionado já possui um atendimento ou não é válido.");
@@ -117,5 +113,9 @@ public class CadastroAtendimentoGUI extends JFrame {
         txtDuracao.setText("");
         textAreaMensagens.setText("");
 
+    }
+
+    public List<Atendimento> getAtendimentosCadastrados() {
+        return atendimentos;
     }
 }

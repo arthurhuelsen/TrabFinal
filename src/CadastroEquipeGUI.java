@@ -134,4 +134,8 @@ public class CadastroEquipeGUI extends JFrame {
         textAreaMensagens.setText(sb.toString());
     }
 
+    public List<Equipe> getEquipesCadastradas() {
+        return equipesCadastradas;
+    }
+
 }

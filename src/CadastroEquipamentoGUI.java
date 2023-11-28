@@ -19,6 +19,7 @@ public class CadastroEquipamentoGUI extends JFrame {
     private List<Barco> barcosCadastrados;
     private List<CaminhaoTanque> caminhoesTanqueCadastrados;
     private List<Escavadeira> escavadeirasCadastradas;
+    List<Equipamento> todosEquipamentos = new ArrayList<>();
 
     public CadastroEquipamentoGUI() {
         barcosCadastrados = new ArrayList<>();
@@ -176,4 +177,16 @@ public class CadastroEquipamentoGUI extends JFrame {
         txtCargaEscavadeira.setText("");
         textAreaMensagens.setText("");
     }
+
+    public List<Equipamento> obterTodosOsEquipamentos() {
+        todosEquipamentos.addAll(barcosCadastrados);
+        todosEquipamentos.addAll(caminhoesTanqueCadastrados);
+        todosEquipamentos.addAll(escavadeirasCadastradas);
+        return todosEquipamentos;
+    }
+
+    public List<Equipamento> getEquipamentosCadastrados() {
+        return todosEquipamentos;
+    }
+
 }

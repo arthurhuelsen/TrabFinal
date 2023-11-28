@@ -2,15 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuPrincipalGUI {
     private JFrame frame;
     private CadastroEventoGUI cadastroEventoGUI;
+    private CadastroEquipamentoGUI cadastroEquipamentoGUI;
+    private CadastroEquipeGUI cadastroEquipeGUI;
+    private CadastroAtendimentoGUI cadastroAtendimentoGUI;
+    private VincularEquipamentoEquipeGUI vincularEquipamentoEquipeGUI;
 
     public MenuPrincipalGUI() {
-        cadastroEventoGUI = new CadastroEventoGUI();
+
         initialize();
+
     }
 
     private void initialize() {
@@ -40,32 +46,65 @@ public class MenuPrincipalGUI {
         frame.getContentPane().add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento entre os botões
     }
 
-    private void openCadastroEquipe() {
-        CadastroEquipeGUI cadastroEquipeGUI = new CadastroEquipeGUI();
-        cadastroEquipeGUI.setVisible(true);
-    }
-
     private void openCadastroEvento() {
-        this.cadastroEventoGUI.setVisible(true);
+        cadastroEventoGUI = new CadastroEventoGUI();
+        cadastroEventoGUI.setVisible(true);
     }
 
     private void openCadastroEquipamento() {
-        CadastroEquipamentoGUI cadastroEquipamentoGUI = new CadastroEquipamentoGUI();
+        cadastroEquipamentoGUI = new CadastroEquipamentoGUI();
         cadastroEquipamentoGUI.setVisible(true);
     }
 
+    private void openCadastroEquipe() {
+        cadastroEquipeGUI = new CadastroEquipeGUI();
+        cadastroEquipeGUI.setVisible(true);
+    }
+
     private void openCadastroAtendimento() {
-        List<Evento> eventosCadastrados = cadastroEventoGUI.obterTodosOsEventos();
-        CadastroAtendimentoGUI cadastroAtendimentoGUI = new CadastroAtendimentoGUI(eventosCadastrados);
+        cadastroAtendimentoGUI = new CadastroAtendimentoGUI(cadastroEventoGUI.obterTodosOsEventos());
         cadastroAtendimentoGUI.setVisible(true);
     }
 
     private void showRelatorioGeral() {
-        // Implementar exibição do Relatório Geral
+        List<Evento> eventos;
+        if (cadastroEventoGUI != null) {
+            eventos = cadastroEventoGUI.obterTodosOsEventos();
+        } else {
+            eventos = new ArrayList<>(); // Se cadastroEventoGUI é null, usa uma lista vazia
+        }
+
+        List<Equipamento> equipamentos;
+        if (cadastroEquipamentoGUI != null) {
+            equipamentos = cadastroEquipamentoGUI.obterTodosOsEquipamentos();
+        } else {
+            equipamentos = new ArrayList<>(); // Se cadastroEquipamentoGUI é null, usa uma lista vazia
+        }
+
+        List<Equipe> equipes;
+        if (cadastroEquipeGUI != null) {
+            equipes = cadastroEquipeGUI.getEquipesCadastradas(); // Substitua por seu método real
+        } else {
+            equipes = new ArrayList<>(); // Se cadastroEquipeGUI é null, usa uma lista vazia
+        }
+
+        List<Atendimento> atendimentos;
+        // Supondo que você tenha uma variável ou método para obter atendimentos
+        // Substitua 'suaVariavelOuMetodo' pelo nome real da sua variável ou método
+        if (cadastroAtendimentoGUI != null) {
+            atendimentos = cadastroAtendimentoGUI.getAtendimentosCadastrados();
+        } else {
+            atendimentos = new ArrayList<>(); // Se a fonte de atendimentos é null, usa uma lista vazia
+        }
+
+        RelatorioGeralGUI relatorioGeralGUI = new RelatorioGeralGUI(eventos, equipamentos, equipes, atendimentos);
+        relatorioGeralGUI.setVisible(true);
     }
 
     private void vincularEquipamentoEquipe() {
-        // Implementar lógica para Vincular Equipamento à Equipe
+        List<Equipe> equipes = cadastroEquipeGUI.getEquipesCadastradas();
+        List<Equipamento> equipamentos = cadastroEquipamentoGUI.obterTodosOsEquipamentos();
+        vincularEquipamentoEquipeGUI = new VincularEquipamentoEquipeGUI(equipamentos, equipes);
     }
 
     private void consultarAtendimentos() {

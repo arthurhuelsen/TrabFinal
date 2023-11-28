@@ -12,4 +12,12 @@ public class CaminhaoTanque extends Equipamento {
 		return capacidade;
 	}
 
+	@Override
+	public String toString() {
+		return "Caminhão Tanque - ID: " + getId() +
+				", Nome: " + getNome() +
+				", Custo por Dia: " + getCustoDia() +
+				", Capacidade: " + capacidade + " litros";
+	}
+
 }

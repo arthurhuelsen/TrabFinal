@@ -40,4 +40,12 @@ public class Atendimento {
 		return codigoEvento;
 	}
 
+	@Override
+	public String toString() {
+		return "Atendimento - Código: " + getCod() +
+				", Data de Início: " + getDataInicio() +
+				", Duração: " + getDuracao() + " dias" +
+				", Status: " + getStatus();
+	}
+
 }

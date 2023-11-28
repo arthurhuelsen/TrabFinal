@@ -23,6 +23,7 @@ public class CadastroEventoGUI extends JFrame {
     private List<Seca> secasCadastradas;
     private List<Ciclone> ciclonesCadastrados;
     private SimpleDateFormat formatadorData;
+    List<Evento> todosEventos = new ArrayList<>();
 
     public CadastroEventoGUI() {
         terremotosCadastrados = new ArrayList<>();
@@ -54,7 +55,6 @@ public class CadastroEventoGUI extends JFrame {
         add(createButtonPanel());
         add(createMessageArea());
 
-        setVisible(true);
     }
 
     private JPanel createEntryPanel(String label, JTextField textField) {
@@ -87,7 +87,7 @@ public class CadastroEventoGUI extends JFrame {
     private void cadastrarEvento() {
         String codigo = txtCodigo.getText();
         String dataTexto = txtData.getText();
-        obterTodosOsEventos();
+
         try {
             Date data = formatadorData.parse(dataTexto);
             double latitude = Double.parseDouble(txtLatitude.getText());
@@ -107,20 +107,27 @@ public class CadastroEventoGUI extends JFrame {
                 return;
             }
 
+            if (eventoCodigoExiste(codigo)) {
+                textAreaMensagens.setText("Erro: Código do evento já existente.");
+                return;
+            } else
             // Cadastra o tipo de evento com base nos campos preenchidos
             if (!txtMagnitude.getText().isEmpty()) {
                 // Converte a magnitude de String para double
                 double magnitude = Double.parseDouble(txtMagnitude.getText());
                 // Cria um novo Terremoto e o adiciona à lista de terremotos
                 terremotosCadastrados.add(new Terremoto(codigo, dataTexto, latitude, longitude, magnitude));
+                System.out.println(terremotosCadastrados);
                 // Atualiza a área de mensagens com o sucesso do cadastro
                 textAreaMensagens.setText("Terremoto cadastrado com sucesso!");
+                System.out.println("reanta" + terremotosCadastrados);
 
             } else if (!txtEstiagem.getText().isEmpty()) {
                 // Converte a estiagem de String para int
                 int estiagem = Integer.parseInt(txtEstiagem.getText());
                 // Cria uma nova Seca e a adiciona à lista de secas
                 secasCadastradas.add(new Seca(codigo, dataTexto, latitude, longitude, estiagem));
+                System.out.println(secasCadastradas);
                 // Atualiza a área de mensagens com o sucesso do cadastro
                 textAreaMensagens.setText("Seca cadastrada com sucesso!");
 
@@ -154,6 +161,19 @@ public class CadastroEventoGUI extends JFrame {
         }
     }
 
+    private boolean eventoCodigoExiste(String codigo) {
+        return terremotosCadastrados.stream().anyMatch(evento -> evento.getCodigo().equals(codigo)) ||
+                secasCadastradas.stream().anyMatch(evento -> evento.getCodigo().equals(codigo)) ||
+                ciclonesCadastrados.stream().anyMatch(evento -> evento.getCodigo().equals(codigo));
+    }
+
+    public List<Evento> obterTodosOsEventos() {
+        todosEventos.addAll(terremotosCadastrados);
+        todosEventos.addAll(secasCadastradas);
+        todosEventos.addAll(ciclonesCadastrados);
+        return todosEventos;
+    }
+
     private void limparCampos() {
         txtCodigo.setText("");
         txtData.setText("");
@@ -164,14 +184,5 @@ public class CadastroEventoGUI extends JFrame {
         txtVelocidade.setText("");
         txtPrecipitacao.setText("");
         textAreaMensagens.setText("");
-    }
-
-    public List<Evento> obterTodosOsEventos() {
-        List<Evento> todosEventos = new ArrayList<>();
-        todosEventos.addAll(terremotosCadastrados);
-        todosEventos.addAll(secasCadastradas);
-        todosEventos.addAll(ciclonesCadastrados);
-        return todosEventos;
-
     }
 }

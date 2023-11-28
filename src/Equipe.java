@@ -20,9 +20,15 @@ public class Equipe {
 		this.equipamentos = new ArrayList<>();
 	}
 
-	// Método para adicionar equipamentos à equipe
 	public void adicionarEquipamento(Equipamento equipamento) {
-		this.equipamentos.add(equipamento);
+		if (!equipamentos.contains(equipamento)) {
+			equipamentos.add(equipamento);
+		}
+	}
+
+	// Verifica se um equipamento específico está vinculado à equipe
+	public boolean temEquipamento(Equipamento equipamento) {
+		return equipamentos.contains(equipamento);
 	}
 
 	public boolean podeAtender(Evento evento) {
@@ -66,4 +72,11 @@ public class Equipe {
 		return new ArrayList<>(equipamentos); // Retorna uma cópia para evitar modificação externa da lista original
 	}
 
+	@Override
+	public String toString() {
+		return "Equipe - Codinome: " + getCodinome() +
+				", Quantidade de Membros: " + getQuantidadeMembros() +
+				", Latitude: " + getLatitude() +
+				", Longitude: " + getLongitude();
+	}
 }

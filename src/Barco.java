@@ -11,4 +11,12 @@ public class Barco extends Equipamento {
 		return capacidade;
 	}
 
+	@Override
+	public String toString() {
+		return "Barco - ID: " + getId() +
+				", Nome: " + getNome() +
+				", Custo por Dia: " + getCustoDia() +
+				", Capacidade: " + capacidade + " pessoas";
+	}
+
 }

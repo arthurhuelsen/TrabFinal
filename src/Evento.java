@@ -10,12 +10,6 @@ public class Evento {
 	private double longitude;
 
 	public Evento(String codigo, String data, double latitude, double longitude) {
-		if (codigo == null) {
-			throw new IllegalArgumentException("O código não pode ser nulo ou vazio.");
-		}
-		if (codigosExistentes.contains(codigo)) {
-			throw new IllegalArgumentException("Código de evento já existe.");
-		}
 
 		this.codigo = codigo;
 		this.data = data;
