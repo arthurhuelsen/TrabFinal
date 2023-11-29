@@ -17,8 +17,11 @@ public class CadastroEquipamentoGUI extends JFrame {
     private JTextArea textAreaMensagens;
 
     private List<Barco> barcosCadastrados;
+
     private List<CaminhaoTanque> caminhoesTanqueCadastrados;
+
     private List<Escavadeira> escavadeirasCadastradas;
+
     List<Equipamento> todosEquipamentos = new ArrayList<>();
 
     public CadastroEquipamentoGUI() {
@@ -114,6 +117,9 @@ public class CadastroEquipamentoGUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(textAreaMensagens);
         frame.getContentPane().add(scrollPane);
 
+    }
+
+    public void showGUI() {
         frame.setVisible(true);
     }
 
@@ -187,6 +193,18 @@ public class CadastroEquipamentoGUI extends JFrame {
 
     public List<Equipamento> getEquipamentosCadastrados() {
         return todosEquipamentos;
+    }
+
+    public void setBarcosCadastrados(List<Barco> barcosCadastrados) {
+        this.barcosCadastrados = barcosCadastrados;
+    }
+
+    public void setCaminhoesTanqueCadastrados(List<CaminhaoTanque> caminhoesTanqueCadastrados) {
+        this.caminhoesTanqueCadastrados = caminhoesTanqueCadastrados;
+    }
+
+    public void setEscavadeirasCadastradas(List<Escavadeira> escavadeirasCadastradas) {
+        this.escavadeirasCadastradas = escavadeirasCadastradas;
     }
 
 }

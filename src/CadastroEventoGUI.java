@@ -84,6 +84,10 @@ public class CadastroEventoGUI extends JFrame {
         return new JScrollPane(textAreaMensagens);
     }
 
+    public void showGUI() {
+        setVisible(true);
+    }
+
     private void cadastrarEvento() {
         String codigo = txtCodigo.getText();
         String dataTexto = txtData.getText();
@@ -184,5 +188,17 @@ public class CadastroEventoGUI extends JFrame {
         txtVelocidade.setText("");
         txtPrecipitacao.setText("");
         textAreaMensagens.setText("");
+    }
+
+    public void setTerremotosCadastrados(List<Terremoto> terremotosCadastrados) {
+        this.terremotosCadastrados = terremotosCadastrados;
+    }
+
+    public void setSecasCadastradas(List<Seca> secasCadastradas) {
+        this.secasCadastradas = secasCadastradas;
+    }
+
+    public void setCiclonesCadastrados(List<Ciclone> ciclonesCadastrados) {
+        this.ciclonesCadastrados = ciclonesCadastrados;
     }
 }

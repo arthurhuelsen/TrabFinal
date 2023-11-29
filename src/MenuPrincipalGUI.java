@@ -15,9 +15,13 @@ public class MenuPrincipalGUI {
     private GerenciadorDeAlocacoesGUI gerenciadorDeAlocacoesGUI;
     private AlterarSituacaoAtendimentoGUI AlterarSituacaoAtendimentoGUI;
     private ConsultarAtendimentosGUI consultarAtendimentosGUI;
+    private LerArquivoInicial lerArquivoInicial;
 
     public MenuPrincipalGUI() {
-
+        cadastroEventoGUI = new CadastroEventoGUI();
+        cadastroEquipamentoGUI = new CadastroEquipamentoGUI();
+        cadastroEquipeGUI = new CadastroEquipeGUI();
+        cadastroAtendimentoGUI = new CadastroAtendimentoGUI(cadastroEventoGUI.obterTodosOsEventos());
         initialize();
 
     }
@@ -37,6 +41,7 @@ public class MenuPrincipalGUI {
         addButton("Alocar Atendimentos", e -> AlocarAtendimentos());
         addButton("Consultar Todos os Atendimentos", e -> consultarAtendimentos());
         addButton("Alterar a Situação de um Atendimento", e -> alterarSituacaoAtendimento());
+        addButton("Carregar Dados Iniciais", e -> CarregarDadosIniciais());
 
         frame.setVisible(true);
     }
@@ -51,24 +56,23 @@ public class MenuPrincipalGUI {
     }
 
     private void openCadastroEvento() {
-        cadastroEventoGUI = new CadastroEventoGUI();
-        cadastroEventoGUI.setVisible(true);
+        cadastroEventoGUI.showGUI();
     }
 
     private void openCadastroEquipamento() {
-        cadastroEquipamentoGUI = new CadastroEquipamentoGUI();
-        cadastroEquipamentoGUI.setVisible(true);
+
+        cadastroEquipamentoGUI.showGUI();
 
     }
 
     private void openCadastroEquipe() {
-        cadastroEquipeGUI = new CadastroEquipeGUI();
-        cadastroEquipeGUI.setVisible(true);
+
+        cadastroEquipeGUI.showGUI();
     }
 
     private void openCadastroAtendimento() {
-        cadastroAtendimentoGUI = new CadastroAtendimentoGUI(cadastroEventoGUI.obterTodosOsEventos());
-        cadastroAtendimentoGUI.setVisible(true);
+
+        cadastroAtendimentoGUI.showGUI();
     }
 
     private void showRelatorioGeral() {
@@ -153,6 +157,45 @@ public class MenuPrincipalGUI {
         AlterarSituacaoAtendimentoGUI alterarSituacaoGUI = new AlterarSituacaoAtendimentoGUI(
                 cadastroAtendimentoGUI.getAtendimentosCadastrados());
         alterarSituacaoGUI.setVisible(true);
+    }
+
+    private void CarregarDadosIniciais() {
+
+        lerArquivoInicial = new LerArquivoInicial(this);
+        lerArquivoInicial.setVisible(true);
+
+    }
+
+    public void atualizarCiclones(List<Ciclone> ciclones) {
+        cadastroEventoGUI.setCiclonesCadastrados(ciclones);
+    }
+
+    public void atualizarTerremotos(List<Terremoto> terremotos) {
+        cadastroEventoGUI.setTerremotosCadastrados(terremotos);
+    }
+
+    public void atualizarSecas(List<Seca> secas) {
+        cadastroEventoGUI.setSecasCadastradas(secas);
+    }
+
+    public void atualizarBarcos(List<Barco> barcos) {
+        cadastroEquipamentoGUI.setBarcosCadastrados(barcos);
+    }
+
+    public void atualizarCaminhoesTanque(List<CaminhaoTanque> caminhoesTanque) {
+        cadastroEquipamentoGUI.setCaminhoesTanqueCadastrados(caminhoesTanque);
+    }
+
+    public void atualizarEscavadeiras(List<Escavadeira> escavadeiras) {
+        cadastroEquipamentoGUI.setEscavadeirasCadastradas(escavadeiras);
+    }
+
+    public void atualizarEquipes(List<Equipe> equipes) {
+        cadastroEquipeGUI.setEquipesCadastradas(equipes);
+    }
+
+    public void atualizarAtendimentos(List<Atendimento> atendimentos) {
+        cadastroAtendimentoGUI.setAtendimentos(atendimentos);
     }
 
     public static void main(String[] args) {

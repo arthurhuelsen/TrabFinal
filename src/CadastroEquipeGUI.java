@@ -86,7 +86,10 @@ public class CadastroEquipeGUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(textAreaMensagens); // Adiciona barra de rolagem à área de texto
         frame.getContentPane().add(scrollPane);
 
-        frame.setVisible(true); // Torna a janela visível
+    }
+
+    public void showGUI() {
+        frame.setVisible(true);
     }
 
     private void cadastrarEquipe() {
@@ -136,6 +139,10 @@ public class CadastroEquipeGUI extends JFrame {
 
     public List<Equipe> getEquipesCadastradas() {
         return equipesCadastradas;
+    }
+
+    public void setEquipesCadastradas(List<Equipe> equipesCadastradas) {
+        this.equipesCadastradas = equipesCadastradas;
     }
 
 }

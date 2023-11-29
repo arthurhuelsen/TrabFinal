@@ -15,6 +15,7 @@ public class CadastroAtendimentoGUI extends JFrame {
 
     private List<Evento> eventosCadastrados;
     private List<Atendimento> atendimentos; // Lista de todos os atendimentos
+
     private GerenciadorDeAlocacoesGUI gerenciadorDeAlocacoes;
 
     public CadastroAtendimentoGUI(List<Evento> eventosCadastrados) {
@@ -76,6 +77,9 @@ public class CadastroAtendimentoGUI extends JFrame {
         JScrollPane scrollPaneMensagens = new JScrollPane(textAreaMensagens);
         frame.getContentPane().add(scrollPaneMensagens);
 
+    }
+
+    public void showGUI() {
         frame.setVisible(true);
     }
 
@@ -118,5 +122,9 @@ public class CadastroAtendimentoGUI extends JFrame {
 
     public List<Atendimento> getAtendimentosCadastrados() {
         return atendimentos; // pendentes
+    }
+
+    public void setAtendimentos(List<Atendimento> atendimentos) {
+        this.atendimentos = atendimentos;
     }
 }
