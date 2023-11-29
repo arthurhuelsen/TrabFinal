@@ -12,6 +12,9 @@ public class MenuPrincipalGUI {
     private CadastroEquipeGUI cadastroEquipeGUI;
     private CadastroAtendimentoGUI cadastroAtendimentoGUI;
     private VincularEquipamentoEquipeGUI vincularEquipamentoEquipeGUI;
+    private GerenciadorDeAlocacoesGUI gerenciadorDeAlocacoesGUI;
+    private AlterarSituacaoAtendimentoGUI AlterarSituacaoAtendimentoGUI;
+    private ConsultarAtendimentosGUI consultarAtendimentosGUI;
 
     public MenuPrincipalGUI() {
 
@@ -31,6 +34,7 @@ public class MenuPrincipalGUI {
         addButton("Cadastrar Novo Atendimento", e -> openCadastroAtendimento());
         addButton("Mostrar Relatório Geral", e -> showRelatorioGeral());
         addButton("Vincular Equipamento à Equipe", e -> vincularEquipamentoEquipe());
+        addButton("Alocar Atendimentos", e -> AlocarAtendimentos());
         addButton("Consultar Todos os Atendimentos", e -> consultarAtendimentos());
         addButton("Alterar a Situação de um Atendimento", e -> alterarSituacaoAtendimento());
 
@@ -54,6 +58,7 @@ public class MenuPrincipalGUI {
     private void openCadastroEquipamento() {
         cadastroEquipamentoGUI = new CadastroEquipamentoGUI();
         cadastroEquipamentoGUI.setVisible(true);
+
     }
 
     private void openCadastroEquipe() {
@@ -104,15 +109,50 @@ public class MenuPrincipalGUI {
     private void vincularEquipamentoEquipe() {
         List<Equipe> equipes = cadastroEquipeGUI.getEquipesCadastradas();
         List<Equipamento> equipamentos = cadastroEquipamentoGUI.obterTodosOsEquipamentos();
-        vincularEquipamentoEquipeGUI = new VincularEquipamentoEquipeGUI(equipamentos, equipes);
+        vincularEquipamentoEquipeGUI = new VincularEquipamentoEquipeGUI(equipamentos,
+                equipes);
+    }
+
+    private void AlocarAtendimentos() {
+        // Inicializa gerenciadorDeAlocacoesGUI se ainda não foi inicializado
+        if (gerenciadorDeAlocacoesGUI == null) {
+            gerenciadorDeAlocacoesGUI = new GerenciadorDeAlocacoesGUI();
+        }
+
+        // Inicializa cadastroEquipeGUI se ainda não foi inicializado
+        if (cadastroEquipeGUI == null) {
+            cadastroEquipeGUI = new CadastroEquipeGUI();
+        }
+
+        // Inicializa cadastroAtendimentoGUI se ainda não foi inicializado
+        if (cadastroAtendimentoGUI == null) {
+            cadastroAtendimentoGUI = new CadastroAtendimentoGUI(cadastroEventoGUI.obterTodosOsEventos());
+        }
+
+        // Configura as equipes e atendimentos no gerenciador
+        gerenciadorDeAlocacoesGUI.setEventosCadastrados(cadastroEventoGUI.obterTodosOsEventos());
+        gerenciadorDeAlocacoesGUI.setEquipes(cadastroEquipeGUI.getEquipesCadastradas());
+        gerenciadorDeAlocacoesGUI.setAtendimentos(cadastroAtendimentoGUI.getAtendimentosCadastrados());
+
+        // Torna o gerenciador de alocações visível
+        gerenciadorDeAlocacoesGUI.setVisible(true);
     }
 
     private void consultarAtendimentos() {
-        // Implementar consulta de Todos os Atendimentos
+        List<Atendimento> listaDeAtendimentos = cadastroAtendimentoGUI.getAtendimentosCadastrados();
+        List<Evento> listaDeEventos = cadastroEventoGUI.obterTodosOsEventos();
+        List<Equipe> listaDeEquipes = cadastroEquipeGUI.getEquipesCadastradas();
+
+        consultarAtendimentosGUI = new ConsultarAtendimentosGUI();
+        consultarAtendimentosGUI.exibirAtendimentos(listaDeAtendimentos, listaDeEventos, listaDeEquipes);
+        consultarAtendimentosGUI.setVisible(true);
+
     }
 
     private void alterarSituacaoAtendimento() {
-        // Implementar alteração da Situação de um Atendimento
+        AlterarSituacaoAtendimentoGUI alterarSituacaoGUI = new AlterarSituacaoAtendimentoGUI(
+                cadastroAtendimentoGUI.getAtendimentosCadastrados());
+        alterarSituacaoGUI.setVisible(true);
     }
 
     public static void main(String[] args) {

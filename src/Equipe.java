@@ -10,6 +10,7 @@ public class Equipe {
 	private double latitude;
 	private double longitude;
 	private List<Equipamento> equipamentos;
+	private boolean alocada; // Flag para indicar se a equipe está alocada
 
 	// Construtor, getters e setters
 	public Equipe(String codinome, int quantidade, double latitude, double longitude) {
@@ -18,6 +19,7 @@ public class Equipe {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.equipamentos = new ArrayList<>();
+		this.alocada = false;
 	}
 
 	public void adicionarEquipamento(Equipamento equipamento) {
@@ -39,7 +41,7 @@ public class Equipe {
 	}
 
 	// Fórmula de Haversine para calcular a distância entre dois pontos da Terra
-	private double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
+	public double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
 		double lat1Rad = Math.toRadians(lat1);
 		double lat2Rad = Math.toRadians(lat2);
 		double deltaLat = Math.toRadians(lat2 - lat1);
@@ -70,6 +72,18 @@ public class Equipe {
 
 	public List<Equipamento> getEquipamentos() {
 		return new ArrayList<>(equipamentos); // Retorna uma cópia para evitar modificação externa da lista original
+	}
+
+	public void alocar() {
+		this.alocada = true;
+	}
+
+	public void desalocar() {
+		this.alocada = false;
+	}
+
+	public boolean estaAlocada() {
+		return this.alocada;
 	}
 
 	@Override

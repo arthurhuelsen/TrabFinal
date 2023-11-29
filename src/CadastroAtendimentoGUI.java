@@ -15,6 +15,7 @@ public class CadastroAtendimentoGUI extends JFrame {
 
     private List<Evento> eventosCadastrados;
     private List<Atendimento> atendimentos; // Lista de todos os atendimentos
+    private GerenciadorDeAlocacoesGUI gerenciadorDeAlocacoes;
 
     public CadastroAtendimentoGUI(List<Evento> eventosCadastrados) {
         this.eventosCadastrados = eventosCadastrados;
@@ -86,8 +87,8 @@ public class CadastroAtendimentoGUI extends JFrame {
 
         if (eventoSelecionado != null && !existeAtendimentoParaEvento(eventoSelecionado)) {
             String codigoEvento = eventoSelecionado.getCodigo(); // Obter o código do evento
-            Atendimento novoAtendimento = new Atendimento(codAtendimento, codigoEvento, dataInicio, duracao,
-                    "Pendente");
+            Atendimento novoAtendimento = new Atendimento(codAtendimento, dataInicio, duracao,
+                    "Pendente", codigoEvento);
             atendimentos.add(novoAtendimento);
 
             textAreaMensagens.setText("Atendimento cadastrado e adicionado à fila de pendências.");
@@ -116,6 +117,6 @@ public class CadastroAtendimentoGUI extends JFrame {
     }
 
     public List<Atendimento> getAtendimentosCadastrados() {
-        return atendimentos;
+        return atendimentos; // pendentes
     }
 }

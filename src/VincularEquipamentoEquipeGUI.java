@@ -46,6 +46,7 @@ public class VincularEquipamentoEquipeGUI extends JFrame {
                 equipeSelecionada.adicionarEquipamento(equipamentoSelecionado);
                 textAreaMensagens.setText("Equipamento " + equipamentoSelecionado.getNome() +
                         " vinculado com sucesso à equipe " + equipeSelecionada.getCodinome() + ".");
+                System.out.println("testeteste" + equipeSelecionada.getEquipamentos());
             } else {
                 textAreaMensagens.setText("Erro: Equipamento já está vinculado a outra equipe.");
             }

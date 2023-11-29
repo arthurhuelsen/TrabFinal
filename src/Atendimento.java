@@ -4,20 +4,31 @@ public class Atendimento {
 	private int duracao;
 	private String status;
 	private String codigoEvento; // Código do evento
+	private Equipe equipeAlocada;
 
 	// Método para calcular custo
-	public double calculaCusto() {
-		// Implementação do método
-		return 0.0;
+	public double calculaCusto(double distanciaDeslocamento) {
+		double custoEquipe = duracao * 250 * equipeAlocada.getQuantidadeMembros();
+
+		double custoEquipamentos = 0;
+		for (Equipamento equipamento : equipeAlocada.getEquipamentos()) {
+			custoEquipamentos += duracao * equipamento.getCustoDia();
+		}
+
+		double custoDeslocamento = distanciaDeslocamento *
+				(100 * equipeAlocada.getQuantidadeMembros() + 0.1 * custoEquipamentos);
+
+		return custoEquipe + custoEquipamentos + custoDeslocamento;
 	}
 
 	// Construtor, getters e setters
-	public Atendimento(int cod, String codigoEvento, String dataInicio, int duracao, String status) {
+	public Atendimento(int cod, String dataInicio, int duracao, String status, String codigoEvento) {
 		this.cod = cod;
 		this.codigoEvento = codigoEvento;
 		this.dataInicio = dataInicio;
 		this.duracao = duracao;
 		this.status = status;
+
 	}
 
 	public int getCod() {
@@ -38,6 +49,18 @@ public class Atendimento {
 
 	public String getCodigoEvento() {
 		return codigoEvento;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setEquipe(Equipe equipe) {
+		this.equipeAlocada = equipe;
+	}
+
+	public Equipe getEquipe() {
+		return equipeAlocada;
 	}
 
 	@Override
